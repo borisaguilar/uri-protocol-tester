@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+      $(function(){
+        $("a.uricheck").on("click", function(event){
+          var h = $(this).attr("href");
+          $("#iframe-magic").attr("src",h);
+          $(".message-helper").html(h);
+          var range, selection;
+          event.preventDefault();
+          if (document.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(this);
+            range.select();
+          }else if (window.getSelection) {
+            selection = window.getSelection();
+            range = document.createRange();
+            range.selectNodeContents(this);
+            selection.removeAllRanges();
+            selection.addRange(range);
+          }
+        });
+      });
+    </script>
+    <style>
+      iframe#iframe-magic {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <a class="uricheck" href="geo:14.631044,-90.574264">zona 11, Colonia Toledo, Guatemala, Guatemala</a>
+      </li>
+      <li>
+        <a class="uricheck" href="mailto:me@borisaguilar.com">me@borisaguilar.com</a>
+      </li>
+      <li>
+        <a class="uricheck" href="tel:+50256331847">+50256331847</a>
+      </li>
+    </ul>
+    <iframe src="" id="iframe-magic"></iframe>
+    <p class="message-helper"></p>
+  </body>
+</html>
